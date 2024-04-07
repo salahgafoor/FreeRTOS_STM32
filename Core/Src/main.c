@@ -201,18 +201,24 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 static void task1_handler(void *parameters)
 {
+	char msg[100];
 	while(1)
 	{
-		printf("%s\n", (char*)parameters);
-//		taskYIELD();
+//		printf("%s\n", (char*)parameters);
+		snprintf(msg, 30, "%s\n", (char*)parameters); // ""%s\n", (char*)parameters" is converted into formatter string an stored in msg[]
+		SEGGER_SYSVIEW_PrintfTarget(msg);//using msg here; it should be a formatted string that's y snprintf used
+		taskYIELD();
 	}
 }
 static void task2_handler(void *parameters)
 {
+	char msg[100];
 	while(1)
 	{
-		printf("%s\n", (char*)parameters);
-//		taskYIELD();
+//		printf("%s\n", (char*)parameters);
+		snprintf(msg, 30, "%s\n", (char*)parameters); // ""%s\n", (char*)parameters" is converted into formatter string an stored in msg[]
+		SEGGER_SYSVIEW_PrintfTarget(msg);//using msg here; it should be a formatted string that's y snprintf used
+		taskYIELD();
 	}
 }
 /* USER CODE END 4 */
