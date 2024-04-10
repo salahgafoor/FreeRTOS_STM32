@@ -24,6 +24,8 @@
 #include "stdio.h"
 #include "FreeRTOS.h"
 #include "task.h"
+
+extern void SEGGER_UART_init(uint32_t);
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -92,8 +94,9 @@ int main(void)
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
   DWT_CTRL |= (1 << 0);// Setting 0th bit to enable DWT count
+  SEGGER_UART_init(500000);
   SEGGER_SYSVIEW_Conf();// Start SEGGER recording
-  SEGGER_SYSVIEW_Start();
+//  SEGGER_SYSVIEW_Start(); // already started in SEGGER_UART_Init()
 
   status = xTaskCreate(task1_handler, "Task-1", 200, "Hello from Task 1", 2, &task1_handle);
   configASSERT(status == pdPASS);
